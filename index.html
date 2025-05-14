@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK-Singlish Unicode Converter |</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            750: '#2d3748'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)'
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.google
+    s.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgb(243 244 246);
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: rgb(31 41 55);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgb(209 213 219);
+            border-radius: 5px;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgb(75 85 99);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(156 163 175);
+        }
+        
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: rgb(107 114 128);
+        }
+        
+        /* Font specific styles */
+        @font-face {
+            font-family: 'FM Abaya';
+            src: url('assets/fonts/fm-abaya.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'ISI';
+            src: url('assets/fonts/isi.ttf') format('truetype');
+        }
+        
+        /* Animate fade in */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white" x-data="{ mobileMenuOpen: false }">
+    <button id="theme-toggle" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110">
+        <i class="fas fa-sun dark:hidden"></i>
+        <i class="fas fa-moon hidden dark:inline-block"></i>
+    </button>
+
+   <div class="hidden lg:flex fixed top-1/2 -translate-y-1/2 left-6 z-40 flex-col items-center py-5 px-3 bg-white dark:bg-gray-800 rounded-lg shadow-soft">
+    <nav>
+        <ul class="flex flex-col items-center space-y-5">
+            <li>
+                <a href="index.php#converter" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors text-blue-600 dark:text-blue-500">
+                    <i class="fas fa-exchange-alt text-lg"></i>
+                    <span class="text-xs mt-1">Converter</span>
+                </a>
+            </li>
+            <li>
+                <a href="-gapiuide.php" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors ">
+                    <i class="fas fa-code text-lg"></i>
+                    <span class="text-xs mt-1">API</span>
+                </a>
+            </li>
+             <li>
+                <a href="widget.php" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors ">
+                    <i class="fas fa-puzzle-piece text-lg"></i>
+                    <span class="text-xs mt-1">Widget</span>
+                </a>
+            </li> 
+            <li>
+                <a href="fonts.php" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors ">
+                    <i class="fas fa-font text-lg"></i>
+                    <span class="text-xs mt-1">Fonts</span>
+                </a>
+            </li>
+            <li>
+                <a href="about.php" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors ">
+                    <i class="fas fa-info-circle text-lg"></i>
+                    <span class="text-xs mt-1">About</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="help-button" class="flex flex-col items-center w-10 h-10 justify-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                    <i class="fas fa-question-circle text-lg"></i>
+                    <span class="text-xs mt-1">Help</span>
+                </a>
+            </li>
+            </ul>
+    </nav>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Widget test button
+        const widgetTestBtn = document.getElementById('sidebar-widget-test');
+        if (widgetTestBtn) {
+            widgetTestBtn.addEventListener('click', function() {
+                // Check if widget script is already loaded
+                if (window.SinglishWidget) {
+                    window.SinglishWidget.toggle();
+                } else {
+                    // Load the widget script dynamically
+                    const script = document.createElement('script');
+                    script.src = 'https://SK-.lk/singlish/widget/singlish-widget.min.js';
+                    script.onload = function() {
+                        // Initialize and open the widget
+                        window.SinglishWidget.init({
+                            primaryColor: '#cc2d30',
+                            position: 'bottom-right',
+                            autoOpen: true
+                        });
+                    };
+                    document.body.appendChild(script);
+                    
+                    // Show loading message if toast function exists
+                    if (typeof Toastify === 'function') {
+                        Toastify({
+                            text: "Loading Singlish Widget...",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "right",
+                            style: {
+                                background: "#000000"
+                            }
+                        }).showToast();
+                    }
+                }
+            });
+        }
+    });
+</script>    <header class="sticky top-0 z-30 w-full bg-white dark:bg-gray-800 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.php" class="flex items-center space-x-3">
+                   
+                    <span class="font-bold text-lg text-gray-900 dark:text-white">Singlish Converter</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#reference" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-book"></i>
+                    </a>
+                    <a href="#api" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-code"></i>
+                    </a>
+                                        <a href="login.php" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                                    </div>
+                
+                <button 
+                    @click="mobileMenuOpen = !mobileMenuOpen" 
+                    class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                    <i x-bind:class="mobileMenuOpen ? 'fa-times' : 'fa-bars'" class="fas"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div 
+            x-show="mobileMenuOpen" 
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-4"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-4"
+            class="md:hidden bg-white dark:bg-gray-800 shadow-md"
+        >
+            <nav class="py-3 px-4">
+                <ul class="flex flex-col space-y-2">
+                    <li>
+                        <a href="index.php#converter" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 bg-gray-100 dark:bg-gray-700">
+                            <i class="fas fa-exchange-alt w-6"></i>
+                            <span>Converter</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ">
+                            <i class="fas fa-info-circle w-6"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="fonts.php" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 ">
+                            <i class="fas fa-font w-6"></i>
+                            <span>Fonts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#reference" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-book w-6"></i>
+                            <span>Reference</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#api" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-code w-6"></i>
+                            <span>API</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="widget.php" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-code w-6"></i>
+                            <span>Widget</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="help-button-mobile" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-question-circle w-6"></i>
+                            <span>Help & Tips</span>
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="login.php" class="flex items-center py-2 px-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-sign-in-alt w-6"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative min-h-screen flex flex-col">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="assets/js/export-import.js"></script>
+
+<section id="converter" class="relative bg-white dark:bg-gray-900 py-20 overflow-hidden">
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-blue-600 opacity-5 clip-path-hero"></div>
+    <div class="absolute bottom-0 left-0 w-1/3 h-full bg-blue-600 opacity-5 clip-path-hero-left"></div>
+    
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center justify-center max-w-3xl mx-auto">
+            <div class="text-center animate-fade-in" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+                    Singlish to <span class="text-blue-600">Unicode</span> Converter
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                    Type in transliterated Sinhala (Singlish) and get text in Unicode, FM Abaya, or ISI font
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="converter-container -mt-10 md:-mt-16 relative z-10 pb-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex">
+                        <button id="converter-tab-btn" class="tab-btn active py-4 px-6 font-medium relative text-blue-600" data-tab="converter-pane">
+                            <i class="fas fa-exchange-alt mr-2"></i> Converter
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-100 origin-left transition-transform"></span>
+                        </button>
+                        <button id="help-tab-btn" class="tab-btn py-4 px-6 font-medium relative text-gray-600 dark:text-gray-300" data-tab="help-pane">
+                            <i class="fas fa-question-circle mr-2"></i> Help
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 origin-left transition-transform"></span>
+                        </button>
+                        <button id="character-map-btn" class="tab-btn py-4 px-6 font-medium relative text-gray-600 dark:text-gray-300" data-tab="character-map">
+                            <i class="fa fa-language rcle mr-2"></i> Character Map
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 origin-left transition-transform"></span>
+                        </button>
+                        
+                    </div>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <div id="converter-pane" class="tab-content block">
+                        <div class="mb-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Input Type</label>
+                                    <div class="flex space-x-4">
+                                    <button id="voice-input-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium"><i class="fas fa-microphone "></i></button>
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="inputType" id="inputSinglish" value="singlish" checked class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                            <span class="ml-2 text-gray-700 dark:text-gray-300">Singlish</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="inputType" id="inputUnicode" value="unicode" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                            <span class="ml-2 text-gray-700 dark:text-gray-300">Unicode</span>
+                                        </label>
+                                       
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+                                    <div class="flex flex-wrap gap-4">
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="outputFormat" id="outputUnicode" value="unicode" checked class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                            <span class="ml-2 text-gray-700 dark:text-gray-300">Unicode</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="outputFormat" id="outputFont" value="font" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                            <span class="ml-2 text-gray-700 dark:text-gray-300">FM Abaya</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="outputFormat" id="outputIsi" value="isi" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500">
+                                            <span class="ml-2 text-gray-700 dark:text-gray-300">ISI Font</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+    <div class="relative mb-4">
+        <label for="input-text" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <i class="fas fa-keyboard mr-2 text-blue-600"></i>
+            <span id="input-label">Type Singlish</span>
+        </label>
+        <textarea 
+            id="input-text" 
+            class="w-full h-48 px-4 py-3 text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 ease-in-out resize-none"
+            placeholder="Type text here..."
+        ></textarea>
+        <div class="absolute bottom-2 right-3 text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-700 px-2 py-1 rounded">
+            <span id="character-count">0</span> characters
+        </div>
+    </div>
+    
+    <div class="flex justify-end mb-4 space-x-3">
+        <button id="clear-btn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium">
+            <i class="fas fa-eraser mr-2"></i> Clear
+        </button>
+         <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium">
+            <i class="fas fa-upload mr-2"></i> Import <i class="fas fa-chevron-down ml-2 text-xs"></i>
+        </button>
+        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+    <label for="import-text-file" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center cursor-pointer">
+        <i class="fas fa-file-import mr-2"></i> Import Text File
+    </label>
+    <input type="file" id="import-text-file" accept=".txt,.text,.html,.md" class="hidden">
+    
+    <button id="import-image-btn" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">
+        <i class="fas fa-image mr-2"></i> Upload Image (OCR)
+    </button>
+    
+    <label for="import-settings-file" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center cursor-pointer">
+        <i class="fas fa-cog mr-2"></i> Import Settings
+    </label>
+    <input type="file" id="import-settings-file" accept=".json" class="hidden">
+</div>
+    </div>
+     
+        
+    </div>
+    
+  
+    
+    <div id="singlish-examples" class="bg-gray-50 dark:bg-gray-750 rounded-lg p-4">
+        <div class="flex items-center mb-3 text-sm text-gray-600 dark:text-gray-400">
+            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+            <span>Examples (click to try)</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">mama</button>
+            <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">oba</button>
+            <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">aayuboewan</button>
+            <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">kohomadha</button>
+            <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">subha dhavasak</button>
+        </div>
+    </div>
+                                
+                                <div id="unicode-examples" class="bg-gray-50 dark:bg-gray-750 rounded-lg p-4 hidden">
+                                    <div class="flex items-center mb-3 text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                        <span>Examples (click to try)</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">මම</button>
+                                        <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">ඔබ</button>
+                                        <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">ආයුබෝවන්</button>
+                                        <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">කොහොමද</button>
+                                        <button class="example-btn px-3 py-1.5 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 text-sm transition-colors">සුභ දවසක්</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="relative mb-4">
+                                    <label for="output-text" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <i class="fas fa-language mr-2 text-blue-600"></i>
+                                        <span id="output-label">Unicode Result</span>
+                                    </label>
+                                    <textarea 
+                                        id="output-text" 
+                                        class="w-full h-48 px-4 py-3 text-base rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 ease-in-out resize-none"
+                                        placeholder="Result will appear here..." 
+                                        readonly
+                                    ></textarea>
+                                    <div class="absolute bottom-2 right-3 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 px-2 py-1 rounded">
+                                        <span id="output-character-count">0</span> characters
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end mb-4 space-x-3">
+                                     <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium">
+            <i class="fas fa-download mr-2"></i> Export <i class="fas fa-chevron-down ml-2 text-xs"></i>
+        </button>
+        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+            <button id="export-txt-btn" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">
+                <i class="fas fa-file-alt mr-2"></i> Export as TXT
+            </button>
+            <button id="export-pdf-btn" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">
+                <i class="fas fa-file-pdf mr-2"></i> Export as PDF
+            </button>
+            <hr class="border-gray-200 dark:border-gray-700">
+            <button id="export-settings-btn" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">
+                <i class="fas fa-cog mr-2"></i> Export Settings
+            </button>
+        </div>
+    </div>
+    
+   
+                                    <button id="copy-btn" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium">
+                                        <i class="fas fa-copy mr-2"></i> Copy
+                                    </button>
+                                    <button id="share-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 flex items-center text-sm font-medium">
+                                        <i class="fas fa-share-alt mr-2"></i> Share
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 pulse-animation"></span>
+                                    <span id="conversion-status">Instant conversion enabled</span>
+                                </div>
+                                
+                                <div id="font-usage-note" class="bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 p-4 rounded-lg hidden">
+                                    <div class="flex">
+                                        <i class="fas fa-info-circle text-blue-500 mt-1 mr-3"></i>
+                                        <span id="font-usage-text">The selected font must be installed on your device to view this text correctly. <a href="fonts.php" class="underline hover:text-blue-600 dark:hover:text-blue-400">Get the font</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div id="help-pane" class="tab-content hidden">
+                        <h5 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">How to use the Singlish Unicode Converter</h5>
+                        <ol class="list-decimal pl-5 mb-6 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Choose your input type (Singlish or Unicode)</li>
+                            <li>Select your desiblue output format (Unicode, FM Abaya, or ISI font)</li>
+                            <li>Type or paste your text in the input area</li>
+                            <li>The converter automatically processes your text in real-time</li>
+                            <li>Copy the converted text using the Copy button</li>
+                        </ol>
+                        
+                        <h5 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Voice Input Feature</h5>
+                        <ol class="list-decimal pl-5 mb-6 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Click the "Voice Input" button to begin speaking</li>
+                            <li>Speak clearly in Sinhala or English (for Singlish)</li>
+                            <li>Your speech will be converted to text in real-time</li>
+                            <li>Click "Stop Voice Input" when you're finished speaking</li>
+                            <li>The system will automatically detect the language and switch modes if needed</li>
+                        </ol>
+                        
+                        <h5 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Quick Tips</h5>
+                        <ul class="list-disc pl-5 mb-6 space-y-2 text-gray-700 dark:text-gray-300">
+                            <li>Use <strong>aa</strong> or <strong>a)</strong> for long ආ sound (e.g., <strong>maama</strong> for මාම)</li>
+                            <li>Use <strong>A</strong> for the ඇ sound (e.g., <strong>Atta</strong> for ඇත්ත)</li>
+                            <li>If you're converting to a specific font format, make sure you have the font installed on your device</li>
+                            <li>For voice input, Chrome and Edge browsers provide the best recognition quality</li>
+                            <li>Refer to the Reference section below for the complete transliteration scheme</li>
+                        </ul>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-750 p-6 rounded-lg">
+                            <h5 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white">About the Legacy Fonts</h5>
+                            <p class="mb-3 text-gray-700 dark:text-gray-300">FM Abaya and ISI are legacy Sinhala fonts that use non-Unicode encodings. They were widely used before Unicode became the standard for Sinhala text. Some legacy systems and applications still require text in these formats.</p>
+                            <p class="text-gray-700 dark:text-gray-300">To view text in these font formats correctly, you need to have the font installed on your device. <a href="fonts.php" class="text-blue-600 hover:text-blue-700 dark:hover:text-blue-400">Visit our Fonts page</a> to download and install them.</p>
+                        </div>
+                    </div>
+
+
+                    <div id="character-map" class="tab-content hidden">
+                       <div class="bg-gray-50 dark:bg-gray-750 rounded-lg p-4 mt-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                    <i class="fas fa-keyboard text-blue-600 mr-2"></i>
+                                    <span>Character Map</span>
+                                </div>
+                                <button id="toggle-char-map" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                            
+                            <div id="char-map-content" class="mt-2">
+                                <div class="flex border-b border-gray-200 dark:border-gray-700 mb-3">
+                                    <button class="char-map-tab py-2 px-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600" data-tab="consonants">
+                                        Consonants
+                                    </button>
+                                    <button class="char-map-tab py-2 px-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" data-tab="vowels">
+                                        Vowels
+                                    </button>
+                                    <button class="char-map-tab py-2 px-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" data-tab="special">
+                                        Special
+                                    </button>
+                                </div>
+                                
+                                <div class="overflow-y-auto max-h-48">
+                                   <div id="consonants-tab" class="char-map-content grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ka">ka - ක</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kha">kha - ඛ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ga">ga - ග</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="gha">gha / G - ඝ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="cha">cha - ච</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Cha">Cha - ඡ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ja">ja - ජ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="q">q - ඣ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ta">ta - ට</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Ta">Ta - ඨ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="da">da - ඩ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Da">Da - ඪ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="tha">tha - ත</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Tha">Tha - ථ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="dha">dha - ද</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Dha">Dha - ධ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="na">na - න</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Na">Na - ණ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ba">ba - බ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="bha">bha - භ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Ba">Ba - ඹ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ma">ma - ම</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ya">ya - ය</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ra">ra - ර</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="la">la - ල</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="La">La - ළ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="wa">wa - ව</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="sa">sa - ස</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="sha">sha - ශ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Sha">Sha - ෂ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ha">ha - හ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="fa">fa - ෆ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="GNa">GNa - ඥ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="KNa">KNa - ඤ</button>
+                        </div>
+
+                        <div id="vowels-tab" class="char-map-content hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="a">a - අ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="aa">aa - ආ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="A">A - ඇ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Aa">Aa / ae - ඈ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="i">i - ඉ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ee">ee / ie - ඊ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="u">u - උ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="uu">uu - ඌ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="e">e - එ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ea">ea - ඒ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="I">kI - කෛ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="o">o - ඔ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="oo">oo / oe - ඕ</button>
+                        </div>
+
+                        <div id="special-tab" class="char-map-content hidden grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="k">k - ක්</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kaa">kaa - කා</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kA">kA - කැ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kAa">kAa - කෑ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ki">ki - කි</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kie">kie - කී</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ku">ku - කු</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kuu">kuu - කූ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ke">ke - කෙ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kei">kei/kee - කේ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="ko">ko - කො</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="koe">koe - කෝ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kau">kau - කෞ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kra">kra - ක්‍ර</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kraa">kraa - ක්‍රා</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="krA">krA - ක්‍රැ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="krAa">krAa - ක්‍රෑ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kri">kri - ක්‍රි</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="krie">krie - ක්‍රී</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kru">kru - කෘ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kruu">kruu - කෲ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kre">kre - ක්‍රෙ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="krei">krei - ක්‍රේ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kro">kro - ක්‍රො</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kroe">kroe - ක්‍රෝ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="\rka">\rka - ර්‍ක</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="kYa">kYa - ක්‍ය</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Lu">Lu - ළු</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="Luu">Luu - ළූ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="a\n">a\n - අං</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="a\h">a\h - අඃ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="\R">\R - ඍ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="nnda">nnda - ඬ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="nndha">nndha - ඳ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="nnga">nnga - ඟ</button>
+                            <button class="char-btn px-2 py-1 text-sm bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded border border-gray-200 dark:border-gray-600 transition-colors" data-char="\N">\N - ඬ</button>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<div 
+    id="exportPdfModal" 
+    x-data="{ open: false }" 
+    x-show="open" 
+    x-on:open-export-pdf-modal.window="open = true"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 transform translate-y-4"
+    x-transition:enter-end="opacity-100 transform translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 transform translate-y-0"
+    x-transition:leave-end="opacity-0 transform translate-y-4"
+    class="fixed inset-0 z-50 overflow-y-auto" 
+    style="display: none"
+>
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" x-on:click="open = false"></div>
+
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                        <i class="fas fa-file-pdf text-blue-600"></i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                            Export as PDF
+                        </h3>
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                                <input type="text" id="pdf-title" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700" placeholder="Document Title">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Paper Size</label>
+                                <select id="pdf-paper-size" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700">
+                                    <option value="a4">A4</option>
+                                    <option value="letter">Letter</option>
+                                    <option value="legal">Legal</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Font Size</label>
+                                <select id="pdf-font-size" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700">
+                                    <option value="10">Small (10pt)</option>
+                                    <option value="12" selected>Medium (12pt)</option>
+                                    <option value="14">Large (14pt)</option>
+                                    <option value="16">X-Large (16pt)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="pdf-include-date" class="mr-2">
+                                <label for="pdf-include-date" class="text-sm text-gray-700 dark:text-gray-300">Include current date</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button 
+                    type="button" 
+                    id="generate-pdf-btn"
+                    class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                    Generate PDF
+                </button>
+                <button 
+                    type="button" 
+                    class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700"
+                    x-on:click="open = false"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div 
+    id="importSuccessModal" 
+    x-data="{ open: false, message: '' }" 
+    x-show="open" 
+    x-on:open-import-success-modal.window="open = true; message = $event.detail.message"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 transform translate-y-4"
+    x-transition:enter-end="opacity-100 transform translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 transform translate-y-0"
+    x-transition:leave-end="opacity-0 transform translate-y-4"
+    class="fixed inset-0 z-50 overflow-y-auto" 
+    style="display: none"
+>
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" x-on:click="open = false"></div>
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-green-100 dark:bg-green-900/30 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                        <i class="fas fa-check text-green-600"></i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                            Import Successful
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500 dark:text-gray-400" x-text="message"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button 
+                    type="button" 
+                    class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+                    x-on:click="open = false"
+                >
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Character Map tabs functionality
+        const charMapTabs = document.querySelectorAll('.char-map-tab');
+        const charMapContents = document.querySelectorAll('.char-map-content');
+        
+        charMapTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                charMapTabs.forEach(t => {
+                    t.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+                    t.classList.add('text-gray-500', 'dark:text-gray-400');
+                });
+                
+                // Hide all tab contents
+                charMapContents.forEach(c => c.classList.add('hidden'));
+                
+                // Add active class to clicked tab
+                this.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+                this.classList.remove('text-gray-500', 'dark:text-gray-400');
+                
+                // Show corresponding tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId + '-tab').classList.remove('hidden');
+            });
+        });
+        
+        // Toggle character map visibility
+        const toggleCharMapBtn = document.getElementById('toggle-char-map');
+        const charMapContent = document.getElementById('char-map-content');
+        
+        toggleCharMapBtn.addEventListener('click', function() {
+            const isHidden = charMapContent.classList.contains('hidden');
+            if (isHidden) {
+                charMapContent.classList.remove('hidden');
+                this.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            } else {
+                charMapContent.classList.add('hidden');
+                this.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            }
+        });
+        
+        // Character buttons functionality - insert at cursor position
+        const charBtns = document.querySelectorAll('.char-btn');
+        const inputText = document.getElementById('input-text');
+        
+        charBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const charToAdd = this.getAttribute('data-char');
+                
+                // Get cursor position
+                const startPos = inputText.selectionStart;
+                const endPos = inputText.selectionEnd;
+                
+                // Get current text
+                const currentValue = inputText.value;
+                
+                // Insert character at cursor position
+                inputText.value = currentValue.substring(0, startPos) + charToAdd + currentValue.substring(endPos);
+                
+                // Update cursor position after insertion
+                const newCursorPos = startPos + charToAdd.length;
+                inputText.focus();
+                inputText.setSelectionRange(newCursorPos, newCursorPos);
+                
+                // Trigger input event to initiate conversion
+                const event = new Event('input', { bubbles: true });
+                inputText.dispatchEvent(event);
+            });
+        });
+    });
+</script>
+</section>
+
+
+
+
+<div 
+    id="ocrModal" 
+    x-data="{ open: false }" 
+    x-show="open" 
+    x-on:open-ocr-modal.window="open = true"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 transform translate-y-4"
+    x-transition:enter-end="opacity-100 transform translate-y-0"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100 transform translate-y-0"
+    x-transition:leave-end="opacity-0 transform translate-y-4"
+    class="fixed inset-0 z-50 overflow-y-auto" 
+    style="display: none"
+>
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" x-on:click="open = false"></div>
+
+        <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                        <i class="fas fa-image text-blue-600"></i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                            Extract Text from Image (OCR)
+                        </h3>
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Language</label>
+                                <select id="ocr-language" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700">
+                                    <option value="eng">English</option>
+                                    <option value="sin">Sinhala</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Upload Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label class="flex flex-col w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                        <div id="preview-container" class="flex flex-col items-center justify-center pt-7">
+                                            <div id="empty-preview">
+                                                <i class="fas fa-cloud-upload-alt fa-2x text-gray-400 dark:text-gray-500"></i>
+                                                <p class="pt-1 text-sm text-gray-500 dark:text-gray-400">Click to upload or drag and drop</p>
+                                                <p class="text-xs text-gray-400 dark:text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                            </div>
+                                            <div id="image-preview" class="hidden">
+                                                <img src="" id="preview-image" class="h-28 object-contain">
+                                            </div>
+                                        </div>
+                                        <input id="ocr-image-input" type="file" class="hidden" accept="image/*" />
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="ocr-status" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Processing Status</label>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-2">
+                                    <div id="ocr-progress" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <p id="ocr-status-text" class="text-xs text-gray-500 dark:text-gray-400">Preparing...</p>
+                            </div>
+
+                            <div id="ocr-results-container" class="hidden">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Extracted Text Preview</label>
+                                <div id="ocr-results-preview" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 max-h-24 overflow-y-auto text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button 
+                    type="button" 
+                    id="extract-text-btn"
+                    class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    disabled
+                >
+                    Extract Text
+                </button>
+                <button 
+                    type="button" 
+                    class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700"
+                    x-on:click="open = false"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Tailwind doesn't come with all the animations we need, so we add custom ones */
+    .clip-path-hero {
+        clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    
+    .clip-path-hero-left {
+        clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+    }
+    
+    /* Voice input button styles */
+    #voice-input-btn.recording {
+        background-color: #dc2626;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+        }
+    }
+    
+    .pulse-animation {
+        animation: pulse-dot 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+    }
+    
+    @keyframes pulse-dot {
+        0% { opacity: 1; }
+        50% { opacity: 0.3; }
+        100% { opacity: 1; }
+    }
+    
+    /* Voice status styles */
+    .voice-status {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: rgba(75, 85, 99, 1);
+    }
+    
+    .voice-status.listening .status-indicator {
+        background-color: #dc2626;
+    }
+    
+    .interim-transcription {
+        background-color: rgba(0,0,0,0.1);
+        padding: 0.625rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        max-height: 6.25rem;
+        overflow: auto;
+    }
+    
+    /* Animation for highlight */
+    @keyframes highlight {
+        0% { background-color: rgba(220, 38, 38, 0.1); }
+        50% { background-color: rgba(220, 38, 38, 0.05); }
+        100% { background-color: transparent; }
+    }
+    
+    .highlight-animation {
+        animation: highlight 1s ease;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons and hide all content
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-gray-600', 'dark:text-gray-300');
+                    b.classList.remove('text-blue-600');
+                    b.querySelector('span').classList.add('scale-x-0');
+                    b.querySelector('span').classList.remove('scale-x-100');
+                });
+                
+                tabContents.forEach(c => c.classList.add('hidden'));
+                
+                // Add active class to clicked button and show corresponding content
+                this.classList.add('active', 'text-blue-600');
+                this.classList.remove('text-gray-600', 'dark:text-gray-300');
+                this.querySelector('span').classList.remove('scale-x-0');
+                this.querySelector('span').classList.add('scale-x-100');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+    });
+</script>
+
+<script src="https://singlish.kdj.lk/assets/js/voice-recognition.js"></script>
+<script src="https://singlish.kdj.lk/assets/js/voice-enhancements.js"></script>
+<script src="https://singlish.kdj.lk/assets/js/converter-integration.js"></script>
+
+<div 
+        id="helpModal" 
+        x-data="{ open: false }" 
+        x-show="open" 
+        x-on:open-help-modal.window="open = true"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-4"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-4"
+        class="fixed inset-0 z-50 overflow-y-auto" 
+        style="display: none"
+    >
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" x-on:click="open = false"></div>
+
+            <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-question-circle text-blue-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                                Help & Tips
+                            </h3>
+                            <div class="mt-4 space-y-4">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">How to use the Singlish Unicode Converter</h4>
+                                    <ol class="mt-2 ml-5 text-sm text-gray-700 dark:text-gray-300 list-decimal space-y-1">
+                                        <li>Type your transliterated Sinhala text (Singlish) in the left text area.</li>
+                                        <li>The converter automatically converts your text to Unicode in real-time.</li>
+                                        <li>Copy the converted text using the Copy button.</li>
+                                        <li>Share your conversion using the Share button.</li>
+                                    </ol>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Quick Tips</h4>
+                                    <ul class="mt-2 ml-5 text-sm text-gray-700 dark:text-gray-300 list-disc space-y-1">
+                                        <li>Use <strong>aa</strong> or <strong>a)</strong> for long ආ sound (e.g., <strong>maama</strong> for මාම).</li>
+                                        <li>Use <strong>A</strong> for the ඇ sound (e.g., <strong>Atta</strong> for ඇත්ත).</li>
+                                        <li>Refer to the Reference section for the complete transliteration scheme.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button 
+                        type="button" 
+                        class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                        x-on:click="open = false"
+                    >
+                        Got it!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div 
+        id="shareModal" 
+        x-data="{ open: false, shareUrl: '' }" 
+        x-show="open" 
+        x-on:open-share-modal.window="open = true; shareUrl = $event.detail.url"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-4"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-4"
+        class="fixed inset-0 z-50 overflow-y-auto" 
+        style="display: none"
+    >
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" x-on:click="open = false"></div>
+
+            <div class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white dark:bg-gray-800 rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-4 pt-5 pb-4 sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:w-full sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                                Share Conversion
+                            </h3>
+                            <div class="mt-6">
+                                <label for="share-url" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Share URL</label>
+                                <div class="relative mt-1 rounded-md shadow-sm">
+                                    <input 
+                                        type="text" 
+                                        id="share-url" 
+                                        x-model="shareUrl"
+                                        readonly
+                                        class="block w-full pr-10 border-gray-300 rounded-md text-gray-700 dark:text-gray-300 dark:bg-gray-700 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 p-2"
+                                    >
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <button 
+                                            x-on:click="navigator.clipboard.writeText(shareUrl); $dispatch('show-toast', {message: 'Copied to clipboard!', type: 'success'})"
+                                            class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                                        >
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-center mt-6 space-x-4">
+                                <a 
+                                    :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl)" 
+                                    target="_blank"
+                                    class="flex items-center justify-center w-10 h-10 transition-colors bg-blue-600 rounded-full hover:bg-blue-700"
+                                >
+                                    <i class="fab fa-facebook-f text-white"></i>
+                                </a>
+                                <a 
+                                    :href="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=Check out this Sinhala text conversion!'" 
+                                    target="_blank"
+                                    class="flex items-center justify-center w-10 h-10 transition-colors bg-sky-500 rounded-full hover:bg-sky-600"
+                                >
+                                    <i class="fab fa-twitter text-white"></i>
+                                </a>
+                                <a 
+                                    :href="'https://api.whatsapp.com/send?text=' + encodeURIComponent('Check out this Sinhala text conversion: ' + shareUrl)" 
+                                    target="_blank"
+                                    class="flex items-center justify-center w-10 h-10 transition-colors bg-green-500 rounded-full hover:bg-green-600"
+                                >
+                                    <i class="fab fa-whatsapp text-white"></i>
+                                </a>
+                                <a 
+                                    :href="'mailto:?subject=Singlish Unicode Converter&body=' + encodeURIComponent('Check out this Sinhala text conversion: ' + shareUrl)" 
+                                    class="flex items-center justify-center w-10 h-10 transition-colors bg-gray-500 rounded-full hover:bg-gray-600"
+                                >
+                                    <i class="fas fa-envelope text-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button 
+                        type="button" 
+                        class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                        x-on:click="open = false"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        x-data="{ notifications: [] }"
+        x-on:show-toast.window="notifications.push({id: Date.now(), message: $event.detail.message, type: $event.detail.type || 'info', timeout: setTimeout(() => { notifications = notifications.filter(i => i.id !== $event.detail.id) }, 3000) })"
+        class="fixed bottom-0 right-0 z-50 p-4 space-y-3"
+    >
+        <template x-for="notification in notifications" :key="notification.id">
+            <div
+                x-show="notification"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform translate-y-2"
+                x-transition:enter-end="opacity-100 transform translate-y-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                x-init="setTimeout(() => { notifications = notifications.filter(i => i.id !== notification.id) }, 3000)"
+                class="flex items-center px-4 py-3 max-w-xs bg-gray-900 dark:bg-gray-800 rounded-lg shadow-lg"
+            >
+                <i 
+                    :class="{
+                        'fas fa-check-circle text-green-500': notification.type === 'success',
+                        'fas fa-info-circle text-blue-500': notification.type === 'info',
+                        'fas fa-exclamation-circle text-yellow-500': notification.type === 'warning',
+                        'fas fa-times-circle text-blue-500': notification.type === 'error'
+                    }"
+                    class="mr-3"
+                ></i>
+                <span class="text-white" x-text="notification.message"></span>
+            </div>
+        </template>
+    </div>
+
+    <footer class="mt-auto bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        
+                        <span class="font-semibold text-lg">Singlish Converter</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-5">
+                        A powerful tool for converting Singlish (transliterated Sinhala) to Unicode in real-time.
+                    </p>
+                   
+                </div>
+                
+            
+            
+            <div class="mt-8 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 - Singlish Unicode Converter. Developed By SK</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script data-cfasync="false" src="https://singlish.kdj.lk/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+        
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', function() {
+                    document.documentElement.classList.toggle('dark');
+                    
+                    // Save preference to cookie
+                    const isDarkMode = document.documentElement.classList.contains('dark');
+                    document.cookie = `theme=${isDarkMode ? 'dark' : 'light'}; path=/; max-age=${60*60*24*365}`;
+                    
+                    // Show toast
+                    const message = isDarkMode ? 'Dark mode enabled' : 'Light mode enabled';
+                    window.dispatchEvent(new CustomEvent('show-toast', {
+                        detail: {
+                            message: message,
+                            type: 'info'
+                        }
+                    }));
+                });
+            }
+            
+            // Help button functionality
+            const helpButtons = document.querySelectorAll('#help-button, #help-button-mobile');
+            helpButtons.forEach(button => {
+                if (button) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.dispatchEvent(new CustomEvent('open-help-modal'));
+                    });
+                }
+            });
+        });
+    </script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js" defer></script>
+
+    
+    <script src="https://singlish.kdj.lk/assets/js/script.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/scroll-sync.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/keyboard-shortcuts.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/focus-mode.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/enhanced-history.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/smart-completion.js"></script>
+    <script src="https://singlish.kdj.lk/assets/js/image-ocr.js"></script>
+
+    
+</main>
+</body>
+</html>
